@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Signup</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <style>
+        body {
+            background: url('/images/background.png') no-repeat center center fixed;
+            background-size: cover;
+            font-family: Arial, sans-serif;
+            color: white;
+            margin: 0;
+            padding: 0;
+        }
+        header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 20px;
+            background-color: transparent;
+        }
+        .store-name {
+            font-size: 24px;
+            color: rgb(249, 246, 246);
+            display: flex;
+            align-items: center;
+        }
+        .store-name img {
+            width: 50px;
+            height: auto;
+            margin-right: 10px;
+        }
+        main {
+            margin: 50px auto; /* Center horizontally */
+            max-width: 400px; /* Set max-width */
+            background-color: rgba(255, 255, 255, 0.3);
+            padding: 20px;
+            border-radius: 10px;
+        }
+        h1 {
+            margin-top: 0;
+            color: white;
+            text-align: center;
+        }
+        label {
+            display: block;
+            margin: 10px 0 5px;
+            color: white;
+        }
+        input {
+            display: block;
+            border: 2px solid rgba(0, 0, 0, 0.5);
+            background-color: white; /* Set background to white */
+            color: black;
+            font-weight: bold;
+            margin-bottom: 10px;
+            font-size: 16px;
+            padding: 10px;
+            border-radius: 20px;
+            width: calc(100% - 22px);
+            box-sizing: border-box;
+        }
+        button {
+            background-color: darkred;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 16px;
+            margin-top: 10px;
+            width: 100%;
+        }
+        button:hover {
+            opacity: 0.8;
+        }
+        p {
+            margin-top: 20px;
+            color: white;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="store-name">
+            <img src="/images/logo.png" alt="Logo">
+            R&J Consumer Goods Trading
+        </div>
+    </header>
+    <main>
+        <h1>Signup</h1>
+        <form action="/signup" method="POST">
+            <label for="id_no">ID No:</label>
+            <input type="text" id="id_no" name="id_no" required placeholder="Enter ID No">
+            
+            <label for="name">Full Name:</label>
+            <input type="text" id="name" name="name" required placeholder="Enter Name">
+            
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" required placeholder="Enter Password">
+            
+            <label for="confirm_password">Confirm Password:</label>
+            <input type="password" id="confirm_password" name="confirm_password" required placeholder="Confirm Password">
+            
+            <button type="submit">Signup</button>
+        </form>
+        <p>Already have an account? <a href="/login" style="color: white; text-decoration: underline;">Log in here</a></p>
+    </main>
+</body>
+</html>

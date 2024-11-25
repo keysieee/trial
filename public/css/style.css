@@ -1,0 +1,97 @@
+/* Universal Styles */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    color: white;
+    background: url('../images/background.jpg') no-repeat center center fixed;
+    background-size: cover;
+}
+
+/* Header Styles */
+header {
+    display: flex;
+    justify-content: space-between;
+    padding: 20px;
+    background: rgba(255, 255, 255, 0.5);
+}
+.store-name {
+    font-size: 24px;
+    font-weight: bold;
+    color: white;
+}
+.store-name img {
+    width: 50px;
+    margin-right: 10px;
+}
+.nav-links a {
+    color: white;
+    text-decoration: none;
+    margin-left: 20px;
+}
+.nav-links a:hover {
+    text-decoration: underline;
+}
+
+/* Main Section */
+main {
+    margin: 50px auto; /* Center horizontally with auto margins */
+    max-width: 400px; /* Keep the same max-width */
+    background-color: rgba(255, 255, 255, 0.3);
+    padding: 20px;
+    border-radius: 10px;
+}
+h1 {
+    text-align: center;
+}
+
+/* Form Elements */
+form label {
+    display: block;
+    margin: 10px 0 5px;
+}
+input, button {
+    width: calc(100% - 22px);
+    padding: 10px;
+    font-size: 16px;
+    border-radius: 20px;
+    box-sizing: border-box;
+}
+input {
+    border: 2px solid rgba(0, 0, 0, 0.5);
+    background: transparent;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+button {
+    background-color: darkred;
+    color: white;
+    border: none;
+    cursor: pointer;
+    margin-top: 10px;
+    transition: background-color 0.3s;
+}
+button:hover {
+    background-color: red;
+}
+
+/* Footer */
+footer {
+    display: flex;
+    justify-content: flex-end;
+    padding: 15px;
+    background: rgba(255, 255, 255, 0.5);
+}
+footer a {
+    color: darkred;
+    text-decoration: none;
+}
+footer a:hover {
+    text-decoration: underline;
+}
+
+/* Links */
+p {
+    text-align: center;
+    margin-top: 20px;
+}

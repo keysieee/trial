@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inventory</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            display: flex;
+            color: black;
+            background: url('images/background.png') no-repeat center center fixed;
+            background-size: cover;
+        }        
+    
+        .container {
+            display: flex;
+            width: 100%;
+            height: 100%;
+        }
+    
+        .sidebar {
+            width: 250px;
+            background-color: #3e3e3e;
+            padding: 30px;
+            color: white;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+    
+        .logo img {
+            width: 60px;
+            border-radius: 50%;
+        }
+    
+        .logo h2 {
+            text-align: center;
+            margin-top: 10px;
+            font-size: 1.1em;
+        }
+    
+        .sidebar nav {
+            margin-top: 30px;
+            width: 100%;
+        }
+    
+        .menu-item {
+            display: block;
+            padding: 10px;
+            margin-bottom: 10px;
+            background-color: #8d4444;
+            text-decoration: none;
+            color: white;
+            text-align: center;
+            border-radius: 5px;
+        }
+    
+        .menu-item.active {
+            background-color: #ff4a4a;
+        }
+    
+        .logout {
+            margin-top: auto;
+            padding: 10px;
+            background-color: #ff4a4a;
+            color: white;
+            width: 100%;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+    
+        main {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            padding: 20px;
+        }
+    
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+    
+        .search {
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+    
+        .icons .icon {
+            margin-left: 10px;
+            cursor: pointer;
+        }
+    
+        footer {
+            width: 100%;
+            background: darkgray;
+            padding: 15px;
+            color: black;
+            display: flex;
+            justify-content: flex-start;
+            position: relative;
+        }
+    
+        .content {
+            margin-top: 20px;
+        }
+    
+        .content h2 {
+            font-size: 1.5em;
+            color: #336666;
+        }
+    
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+    
+        th, td {
+            padding: 15px;
+            text-align: left;
+            border: 1px solid #ccc;
+        }
+    
+        th {
+            background-color: #8c8c8c;
+            color: white;
+        }
+    
+        td {
+            background-color: #ddd;
+        }
+    </style>    
+</head>
+<body>
+    <div class="container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="logo">
+                <img src="images/logo.png" alt="R&J Logo">
+                <h2>R&J CONSUMER GOODS TRADING</h2>
+            </div>
+            <nav>
+                <a href="/tasks" class="menu-item">Tasks</a>
+                <a href="/inout" class="menu-item">In/Out</a>
+                <a href="/services" class="menu-item">Services</a>
+                <a href="/inventory" class="menu-item active">Inventory</a>
+                <a href="/empshop" class="menu-item">Shop</a>
+            </nav>
+            <button class="logout" onclick="window.location.href='/logout'">Logout</button>
+        </aside>
+
+        <!-- Main Content -->
+        <main>
+            <header class="header">
+                <input type="text" placeholder="Type here..." class="search">
+                <div class="icons">
+                    <a href="/home" class="icon">🏠</a>
+                    <span class="icon">👤</span>
+                </div>
+            </header>
+
+            <section class="content">
+                <h2>Product Inventory</h2>
+                <table>
+                    <tr>
+                        <th>Branch</th>
+                        <th>Location</th>
+                    </tr>
+                </table>
+            </section>
+        </main>
+    </div>
+</body>
+</html>

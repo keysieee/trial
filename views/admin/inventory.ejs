@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div class="container">
+        <h1>Admin Inventory</h1>
+        
+        <!-- Category Buttons for Filtering -->
+        <div class="categories">
+            <a href="/inventory/Groceries" class="<%= currentCategory === 'Groceries' ? 'active' : '' %>">Groceries</a>
+            <a href="/inventory/School Supplies" class="<%= currentCategory === 'School Supplies' ? 'active' : '' %>">School Supplies</a>
+            <a href="/inventory/Household Items" class="<%= currentCategory === 'Household Items' ? 'active' : '' %>">Household Items</a>
+            <!-- Add more category links here -->
+            <a href="/inventory" class="<%= !currentCategory ? 'active' : '' %>">All</a>
+        </div>
+    
+        <!-- Table for Inventory Items -->
+        <table>
+            <thead>
+                <tr>
+                    <th>Product</th>
+                    <th>Price</th>
+                    <th>Stocks</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% inventory.forEach(item => { %>
+                    <tr>
+                        <td><%= item.product_name %></td>
+                        <td><%= item.price %> php</td>
+                        <td><%= item.stocks %></td>
+                        <td>
+                            <!-- Using data-* attributes for passing values -->
+                            <button 
+                                class="update-btn"
+                                data-id="<%= item.id %>"
+                                data-name="<%= item.product_name %>"
+                                data-price="<%= item.price %>"
+                                data-stocks="<%= item.stocks %>">
+                                Update
+                            </button>
+                            
+                            <form method="post" action="/inventory/delete/<%= item.id %>" style="display:inline;">
+                                <button type="submit">Delete</button>
+                            </form>
+                        </td>
+                    </tr>
+                <% }) %>
+            </tbody>            
+        </table>
+    
+        <!-- Add Button -->
+        <button onclick="showAddModal()">Add Item</button>
+    
+        <!-- Modals -->
+        <div id="addModal" style="display:none;">
+            <form method="post" action="/inventory/add">
+                <select name="category" required>
+                    <option value="">Select Category</option>
+                    <option value="Groceries">Groceries</option>
+                    <option value="School Supplies">School Supplies</option>
+                    <option value="Household Items">Household Items</option>
+                    <!-- Add more categories here -->
+                </select>
+                <input type="text" name="product_name" placeholder="Product Name" required />
+                <input type="number" name="price" step="0.01" placeholder="Price" required />
+                <input type="text" name="stocks" placeholder="Stocks" required />
+                <button type="submit">Add</button>
+            </form>
+        </div>
+    
+        <div id="updateModal" style="display:none;">
+            <form method="post" action="" id="updateForm">
+                <input type="text" name="product_name" id="updateProductName" required />
+                <input type="number" name="price" id="updatePrice" step="0.01" required />
+                <input type="text" name="stocks" id="updateStocks" required />
+                <button type="submit">Update</button>
+            </form>
+        </div>
+    </div>
+    
+    <script>
+        // Function to show the 'Add Item' modal
+        function showAddModal() {
+            document.getElementById('addModal').style.display = 'block';
+        }
+    
+        // Attach event listener to all update buttons
+        document.querySelectorAll('.update-btn').forEach(button => {
+            button.addEventListener('click', function () {
+                const id = this.getAttribute('data-id');
+                const name = this.getAttribute('data-name');
+                const price = this.getAttribute('data-price');
+                const stocks = this.getAttribute('data-stocks');
+    
+                // Now call the showUpdateModal function with the retrieved data
+                showUpdateModal(id, name, price, stocks);
+            });
+        });
+    
+        // Function to show the 'Update Item' modal
+        function showUpdateModal(id, name, price, stocks) {
+            console.log(id, name, price, stocks);  // Check the values being passed
+            document.getElementById('updateForm').action = '/inventory/update/' + id;
+            document.getElementById('updateProductName').value = name;
+            document.getElementById('updatePrice').value = price;
+            document.getElementById('updateStocks').value = stocks;
+            document.getElementById('updateModal').style.display = 'block';
+        }
+    </script>
+    
+</body>
+</html>

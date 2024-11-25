@@ -1,0 +1,534 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Services</title>
+    <style>
+        /* Reset some default styles */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        /* Background and font settings */
+        body, html {
+            font-family: Arial, sans-serif;
+            height: 100%;
+            background: url('images/background.png') no-repeat center center fixed;
+            background-size: cover;
+        }
+
+        /* Main container */
+        .container { display: flex; }
+
+        /* Sidebar styling */
+        .sidebar {
+            width: 250px;
+            background-color: #3e3e3e;
+            padding: 30px;
+            color: white;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .logo img { width: 60px; border-radius: 50%; }
+        .logo h2 { text-align: center; margin-top: 10px; font-size: 1.1em; }
+
+        /* Sidebar menu items */
+        .sidebar nav { margin-top: 30px; width: 100%; }
+        .menu-item {
+            display: block;
+            padding: 10px;
+            margin-bottom: 10px;
+            background-color: #8d4444;
+            text-decoration: none;
+            color: white;
+            text-align: center;
+            border-radius: 5px;
+        }
+        .menu-item.active { background-color: #ff4a4a; }
+
+        /* Logout button styling */
+        .logout {
+            margin-top: auto;
+            padding: 10px;
+            background-color: #ff4a4a;
+            color: white;
+            width: 100%;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+
+        /* Main content styling */
+        main {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            padding: 20px;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .search {
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        .icons .icon {
+            margin-left: 10px;
+            cursor: pointer;
+        }
+
+        /* Content area */
+        .content {
+            margin-top: 20px;
+        }
+
+        .content h2 { font-size: 1.5em; color: #336666; }
+
+        /* Tab buttons */
+        .tab-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .tabs {
+            display: flex;
+            gap: 10px;
+        }
+
+        .tab-button {
+            padding: 10px;
+            background-color: #8d4444;
+            color: white;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+
+        .tab-button.active {
+            background-color: #ff4a4a;
+        }
+
+        /* Add button styling */
+        .add-button {
+            padding: 10px;
+            background-color: #ff4a4a;
+            color: white;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+
+        /* Tab content styling */
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        /* Table styling */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+
+        th, td {
+            padding: 15px;
+            text-align: left;
+            border: 1px solid #ccc;
+        }
+
+        th { background-color: #8c8c8c; color: white; }
+        td { background-color: #ddd; }
+
+        /* Modal styling */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            background: white;
+            padding: 20px;
+            width: 400px;
+            border-radius: 10px;
+            text-align: center;
+        }
+
+        .modal-content h3 {
+            margin-bottom: 15px;
+            color: #336666;
+        }
+
+        .modal-content input, .modal-content select {
+            width: 90%;
+            padding: 8px;
+            margin: 10px 0;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+
+        .modal-content button {
+            padding: 10px;
+            background-color: #ff4a4a;
+            color: white;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="logo">
+                <img src="images/logo.png" alt="R&J Logo">
+                <h2>R&J CONSUMER GOODS TRADING</h2>
+            </div>
+            <nav>
+                <a href="/tasks" class="menu-item">Tasks</a>
+                <a href="/inout" class="menu-item">In/Out</a>
+                <a href="/services" class="menu-item active">Services</a>
+                <a href="/inventory" class="menu-item">Inventory</a>
+                <a href="/empshop" class="menu-item">Shop</a>
+            </nav>
+            <button class="logout" onclick="window.location.href='/logout'">Logout</button>
+        </aside>
+
+<main>
+    <header class="header">
+        <input type="text" placeholder="Search" class="search">
+        <div class="icons">
+            <a href="/home" class="icon">🏠</a>
+            <span class="icon">👤</span>
+        </div>
+    </header>
+
+    <section class="content">
+        
+        <!-- Tabs -->
+        <div class="tab-container">
+            <div class="tabs">
+                <button class="tab-button active" onclick="showTab('returnsTab')">Return & Refunds</button>
+                <button class="tab-button" onclick="showTab('discountsTab')">Discount & Promotion</button>
+            </div>
+        </div>
+
+        <!-- Tab Content for Returns & Refunds -->
+        <div id="returnsTab" class="tab-content active">
+            <button class="add-button" onclick="openReturnModal()">+ Add Return/Refund</button>
+            <table>
+                <tr>
+                    <th>Customer Name</th>
+                    <th>Item</th>
+                    <th>Quantity</th>
+                    <th>Reason</th>
+                    <th>Price</th>
+                    <th>Action</th>
+                </tr>
+                <% returns.forEach(function(returnService) { %>
+                    <tr>
+                        <td><%= returnService.customer_name %></td>
+                        <td><%= returnService.item %></td>
+                        <td><%= returnService.quantity %></td>
+                        <td><%= returnService.reason %></td>
+                        <td><%= returnService.price %></td>
+                        <td>
+                            <button onclick="openEditModal(this)" 
+                            data-service='<%- JSON.stringify(returnService) %>' 
+                            data-type="returns">Edit</button>
+
+                            <form action="/services/delete/return/<%= returnService.id %>" method="POST">
+                                <button type="submit">Delete</button>
+                            </form>
+                        </td>
+                    </tr>
+                <% }); %>
+            </table>
+        </div>
+
+        <!-- Tab Content for Discounts & Promotions -->
+        <div id="discountsTab" class="tab-content">
+            <button class="add-button" onclick="openDiscountModal()">+ Add Discount/Promo</button>
+            <table>
+                <tr>
+                    <th>Customer Name</th>
+                    <th>Item</th>
+                    <th>Price</th>
+                    <th>Discount (%)</th>
+                    <th>Price after Discount</th>
+                    <th>Action</th>
+                </tr>
+                <% discounts.forEach(function(discountService) { %>
+                    <tr>
+                        <td><%= discountService.customer_name %></td>
+                        <td><%= discountService.item %></td>
+                        <td><%= discountService.price %></td>
+                        <td><%= discountService.discount %></td>
+                        <td><%= discountService.price_after_discount %></td>
+                        <td>
+                            <button onclick="openEditModal(this)" 
+                            data-service='<%- JSON.stringify(discountService) %>' 
+                            data-type="discounts">Edit</button>
+
+                            <form action="/services/delete/discount/<%= discountService.id %>" method="POST">
+                                <button type="submit">Delete</button>
+                            </form>
+                        </td>
+                    </tr>
+                <% }); %>
+            </table>
+        </div>
+    </section>
+</main>
+
+<!-- Modal for Add Return/Refund -->
+<div id="returnModal" class="modal">
+    <div class="modal-content">
+        <h3>Add Return & Refund</h3>
+        <form action="/services/add/return" method="POST">
+            <input type="text" name="customer_name" placeholder="Customer Name" required>
+            <input type="text" name="item" placeholder="Item" required>
+            <input type="number" name="quantity" placeholder="Quantity" required>
+            <input type="text" name="reason" placeholder="Reason" required>
+            <input type="number" step="0.01" name="price" placeholder="Price" required>
+            <button type="submit">Submit</button>
+            <button type="button" onclick="closeModal()" class="back-button">Back</button>
+        </form>
+    </div>
+</div>
+
+
+<!-- Modal for Add Discount/Promo -->
+<div id="discountModal" class="modal">
+    <div class="modal-content">
+        <h3>Add Discount & Promotion</h3>
+        <form action="/services/add/discount" method="POST">
+            <input type="text" name="customer_name" placeholder="Customer Name" required>
+
+            <input type="text" name="item" placeholder="Item" required>
+            
+            <!-- Price Input -->
+            <input type="number" name="price" id="price" placeholder="Price" step="0.01" required>
+
+            <!-- Discount Input -->
+            <input type="number" name="discount" id="discount" placeholder="Discount (%)" step="0.01" required>
+
+            <!-- Calculated Price After Discount -->
+            <input 
+                type="number" 
+                name="price_after_discount" 
+                id="price_after_discount" 
+                placeholder="Price After Discount" 
+                step="0.01" 
+                readonly 
+            >
+
+            <button type="submit">Submit</button>
+            <button type="button" onclick="closeModal()" class="back-button">Back</button>
+        </form>
+    </div>
+</div>
+
+ <!-- Modal for Update Return/Refund -->
+<!-- Modal for Update Return/Refund -->
+<div id="editReturnModal" class="modal">
+    <div class="modal-content">
+        <h3>Edit Return & Refund</h3>
+        <form id="editReturnForm">
+            <input type="hidden" id="editReturnId">
+            <input type="text" id="editReturnCustomerName" placeholder="Customer Name" required>
+            <input type="text" id="editReturnItem" placeholder="Item" required>
+            <input type="number" id="editReturnQuantity" placeholder="Quantity" required>
+            <input type="text" id="editReturnReason" placeholder="Reason">
+            <input type="number" step="0.01" id="editReturnPrice" placeholder="Price" required>
+            <button type="button" onclick="updateReturn()">Update</button>
+            <button type="button" onclick="closeModal()">Cancel</button>
+        </form>
+    </div>
+</div>
+
+<!-- Modal for Update Discount/Promo -->
+<!-- Modal for Update Discount/Promo -->
+<div id="editDiscountModal" class="modal">
+    <div class="modal-content">
+        <h3>Edit Discount & Promotion</h3>
+        <form onsubmit="updateDiscount(event)">
+            <input type="hidden" id="editDiscountId">
+            <input type="text" id="editDiscountCustomerName" placeholder="Customer Name">
+            <input type="text" id="editDiscountItem" placeholder="Item">
+            <input type="number" id="editDiscountPrice" placeholder="Price">
+            <input type="number" id="editDiscountValue" placeholder="Discount (%)">
+            <input type="number" id="editPriceAfterDiscount" placeholder="Price After Discount" readonly>
+            <button type="submit">Update</button>
+            <button type="button" onclick="closeModal()">Cancel</button>
+        </form>
+    </div>
+</div>
+    
+
+    <script>
+        // JavaScript functions for opening modals, adding, updating, and deleting
+
+        // Open Add Return Modal
+        function openReturnModal() {
+            document.getElementById('returnModal').style.display = 'flex';
+        }
+
+        // Open Add Discount Modal
+        function openDiscountModal() {
+            document.getElementById('discountModal').style.display = 'flex';
+        }
+
+        // Close all modals
+        function closeModal() {
+            document.querySelectorAll('.modal').forEach(modal => modal.style.display = 'none');
+        }
+
+        function openEditModal(button) {
+    // Retrieve the data object from the button's data-attribute
+    const data = JSON.parse(button.getAttribute('data-service'));
+    const type = button.getAttribute('data-type');  // Get the type (returns or discounts)
+
+    if (type === 'returns') {
+        // Populate the fields for Return & Refund
+        document.getElementById('editReturnId').value = data.id;
+        document.getElementById('editReturnCustomerName').value = data.customer_name;
+        document.getElementById('editReturnItem').value = data.item;
+        document.getElementById('editReturnQuantity').value = data.quantity;
+        document.getElementById('editReturnReason').value = data.reason;
+        document.getElementById('editReturnPrice').value = data.price;
+        document.getElementById('editReturnModal').style.display = 'flex';
+    } else if (type === 'discounts') {
+        // Populate the fields for Discount & Promotion
+        document.getElementById('editDiscountId').value = data.id;
+        document.getElementById('editDiscountCustomerName').value = data.customer_name;
+        document.getElementById('editDiscountItem').value = data.item;
+        document.getElementById('editDiscountPrice').value = data.price;
+        document.getElementById('editDiscountValue').value = data.discount; // Discount percentage
+        document.getElementById('editPriceAfterDiscount').value = data.price_after_discount; // Price after discount
+        document.getElementById('editDiscountModal').style.display = 'flex';
+    }
+}
+
+function closeModal() {
+    document.querySelectorAll('.modal').forEach(modal => modal.style.display = 'none');
+}
+
+async function updateReturn() {
+    const id = document.getElementById('editReturnId').value;
+    const data = {
+        customer_name: document.getElementById('editReturnCustomerName').value.trim(),
+        item: document.getElementById('editReturnItem').value.trim(),
+        quantity: parseInt(document.getElementById('editReturnQuantity').value, 10),
+        reason: document.getElementById('editReturnReason').value.trim(),
+        price: parseFloat(document.getElementById('editReturnPrice').value),
+    };
+
+    if (!data.customer_name || !data.item || isNaN(data.quantity) || isNaN(data.price)) {
+        alert('Please fill all fields correctly.');
+        return;
+    }
+
+    const response = await fetch(`/services/update/return/${id}`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data),
+    });
+
+    if (response.ok) {
+        location.reload(); // Reload the page after successful update
+    } else {
+        alert('Failed to update return');
+    }
+}
+
+async function updateDiscount(event) {
+    event.preventDefault(); // Prevent form from submitting the default way
+
+    const id = document.getElementById('editDiscountId').value;
+    const data = {
+        customer_name: document.getElementById('editDiscountCustomerName').value.trim(),
+        item: document.getElementById('editDiscountItem').value.trim(),
+        price: document.getElementById('editDiscountPrice').value.trim(),
+        discount: parseFloat(document.getElementById('editDiscountValue').value),
+    };
+
+    if (isNaN(data.discount) || isNaN(data.price_after_discount)) {
+        alert('Please fill all fields correctly.');
+        return;
+    }
+
+    const response = await fetch(`/services/update/discount/${id}`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data),
+    });
+
+    if (response.ok) {
+        closeModal(); // Close the modal after successful update
+        location.reload(); // Reload the page to reflect the update
+    } else {
+        alert('Failed to update discount');
+    }
+}
+
+        // Show and hide tabs
+        function showTab(tabName) {
+            const tabs = document.querySelectorAll('.tab-content');
+            tabs.forEach(tab => tab.classList.remove('active'));
+
+            const buttons = document.querySelectorAll('.tab-button');
+            buttons.forEach(button => button.classList.remove('active'));
+
+            document.getElementById(tabName).classList.add('active');
+            event.target.classList.add('active');
+        }
+        function showTab(tabName) {
+            const tabs = document.querySelectorAll('.tab-content');
+            tabs.forEach(tab => tab.classList.remove('active'));
+            const buttons = document.querySelectorAll('.tab-button');
+            buttons.forEach(button => button.classList.remove('active'));
+            document.getElementById(tabName).classList.add('active');
+            event.target.classList.add('active');
+        }
+    
+        // Attach event listener for Discount Calculation in the Edit Discount Modal
+        document.getElementById('editDiscountValue').addEventListener('input', calculateDiscountedPrice);
+        document.getElementById('editDiscountPrice').addEventListener('input', calculateDiscountedPrice);
+
+        function calculateDiscountedPrice() {
+            const price = parseFloat(document.getElementById('editDiscountPrice').value); // Original price
+            const discount = parseFloat(document.getElementById('editDiscountValue').value); // Discount percentage
+            const priceAfterDiscountField = document.getElementById('editPriceAfterDiscount');
+
+        if (!isNaN(price) && !isNaN(discount)) {
+            const priceAfterDiscount = price - (price * (discount / 100));
+            priceAfterDiscountField.value = priceAfterDiscount.toFixed(2); // Update the field dynamically
+        } else {
+            priceAfterDiscountField.value = ''; // Clear field if input is invalid
+        }
+}
+
+    </script>
+</body>
+</html>

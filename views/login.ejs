@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-scale, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <style>
+        body {
+            background: url('images/background.png') no-repeat center center fixed; /* Background image */
+            background-size: cover; /* Cover the entire page */
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        header {
+            display: flex;
+            align-items: center; /* Align items vertically in the center */
+            justify-content: space-between; /* Space between store name and nav links */
+            padding: 20px;
+            background-color: transparent; /* Make header background transparent */
+        }
+        .store-name {
+            font-size: 24px;
+            color: rgb(247, 243, 243); /* Store name color */
+            display: flex; /* Use flexbox to align logo and name */
+            align-items: center; /* Center logo and name vertically */
+        }
+        .store-name img {
+            width: 50px; /* Adjust the logo size */
+            height: auto; /* Maintain aspect ratio */
+            margin-right: 10px; /* Space between logo and store name */
+        }
+        .nav-links a {
+            color: white; /* Link color */
+            text-decoration: none;
+            margin-left: 20px;
+        }
+        .nav-links a:hover {
+            text-decoration: underline;
+        }
+        main {
+            margin: 50px auto; /* Center horizontally */
+            max-width: 400px; /* Limit the width of the main content */
+            background-color: rgba(255, 255, 255, 0.3); /* Slightly transparent white background for the form */
+            padding: 20px; /* Padding for the main content */
+            border-radius: 10px; /* Rounded corners */
+        }
+        h1 {
+            margin-top: 0; /* Remove top margin */
+            color: white; /* Heading color */
+            text-align: center; /* Center the heading */
+        }
+        label {
+            display: block; /* Make labels block elements */
+            margin: 10px 0 5px; /* Add spacing around labels */
+            color: white; /* Label color */
+        }
+        input {
+            display: block; /* Make input fields block elements */
+            border: 2px solid rgba(0, 0, 0, 0.5); /* Add subtle border for visibility */
+            background-color: white; /* White background for inputs */
+            color: black; /* Text color for inputs */
+            font-weight: bold; /* Bold text */
+            margin-bottom: 10px; /* Add space between inputs */
+            font-size: 16px; /* Font size for inputs */
+            padding: 10px; /* Padding inside the input fields */
+            border-radius: 20px; /* Rounded input fields */
+            width: calc(100% - 22px); /* Make inputs full width minus padding/border */
+            max-width: 100%; /* Ensure it does not exceed the parent's width */
+            box-sizing: border-box; /* Include padding and border in the element's total width */
+        }
+        button {
+            background-color: darkred; /* Button color */
+            color: white; /* Text color */
+            padding: 10px 20px; /* Padding for button */
+            border: none; /* Remove border */
+            border-radius: 20px; /* Rounded button */
+            cursor: pointer; /* Pointer cursor on hover */
+            font-size: 16px; /* Font size for button */
+            margin-top: 10px; /* Margin on top of the button */
+            width: 100%; /* Full width of button */
+        }
+        button:hover {
+            opacity: 0.8; /* Change opacity on hover */
+        }
+        p {
+            margin-top: 20px; /* Space above the paragraph */
+            color: white; /* Paragraph color */
+            text-align: center; /* Center the paragraph */
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="store-name">
+            <img src="images/logo.png" alt="Logo"> <!-- Add your logo here -->
+            R&J Consumer Goods Trading
+        </div>
+    </header>
+    <main>
+        <h1>Login</h1> <!-- Heading for login -->
+        <form action="/login" method="POST">
+            <label for="id_no">ID No:</label>
+            <input type="text" id="id_no" name="id_no" required placeholder="Enter ID No">
+            
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" required placeholder="Enter Password">
+            
+            <button type="submit">Login</button>
+        </form>
+        <p>Don't have an account? <a href="/signup" style="color: white; text-decoration: underline;">Sign up here</a></p>
+    </main>
+</body>
+</html>

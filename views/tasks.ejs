@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Task List</title>
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        height: 100vh;
+        display: flex;
+        color: white;
+        background: url('images/background.png') no-repeat center center fixed;
+        background-size: cover;
+    }        
+    .container {
+        display: flex;
+        width: 100%;
+        height: 100%;
+    }
+
+    .sidebar {
+        width: 15%;
+        background-color: #3e3e3e;
+        padding: 20px;
+        color: white;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        display: flex;
+        flex-direction: column;
+    }
+
+    .sidebar a {
+        display: block;
+        padding: 10px;
+        color: white;
+        text-decoration: none;
+        margin-bottom: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        transition: background 0.3s;
+    }
+
+    .sidebar a:hover {
+        background: rgba(255, 0, 0, 0.2);
+    }
+
+    .logo img {
+        width: 60px;
+        border-radius: 50%;
+    }
+
+    .logo h2 {
+        text-align: center;
+        margin-top: 10px;
+        font-size: 1.1em;
+    }
+
+    .sidebar nav {
+        margin-top: 30px;
+        width: 100%;
+    }
+
+    .menu-item {
+        display: block;
+        padding: 10px;
+        margin-bottom: 10px;
+        background-color: #8d4444;
+        text-decoration: none;
+        color: white;
+        text-align: center;
+        border-radius: 5px;
+    }
+
+    .menu-item.active {
+        background-color: #ff4a4a;
+    }
+
+    .logout {
+        margin-top: auto;
+        padding: 10px;
+        background-color: #ff4a4a;
+        color: white;
+        width: 100%;
+        border: none;
+        cursor: pointer;
+        border-radius: 5px;
+    }
+
+    main {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        padding: 20px;
+    }
+
+    .header {
+        display: flex;
+        justify-content: flex-end; /* Align icons and search bar to the right */
+        align-items: center;
+        width: 100%;
+    }
+
+    .search {
+        padding: 5px 10px;
+        font-size: 12px;
+        border-radius: 15px; /* More rounded edges */
+        border: none;
+        background-color: #f9f9f9;
+        margin-right: 10px; /* Less margin between search and icons */
+    }
+
+    .icons {
+        display: flex;
+        align-items: center;
+    }
+
+    .icons .icon {
+        margin-left: 5px; /* Minimal space between icons */
+        cursor: pointer;
+        font-size: 1.5em; /* Slightly larger icons */
+    }
+
+    footer {
+        width: 100%;
+        background: darkgray;
+        padding: 15px;
+        color: black;
+        display: flex;
+        justify-content: flex-start;
+        position: relative;
+    }
+
+    .content {
+        margin-top: 20px;
+    }
+
+    .content h2 {
+        font-size: 1.5em;
+        color: #336666;
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 10px;
+    }
+
+    th, td {
+        padding: 15px;
+        text-align: left;
+        border: 1px solid #ccc;
+    }
+
+    th {
+        background-color: #8c8c8c;
+        color: white;
+    }
+
+    td {
+        background-color: #ddd;
+    }
+    /* Modal Style */
+    .modal {
+        display: none; 
+        position: fixed; 
+        z-index: 1; 
+        left: 0;
+        top: 0;
+        width: 100%; 
+        height: 100%; 
+        overflow: auto; 
+        background-color: rgba(0,0,0,0.4); 
+    }
+
+    .modal-content {
+        background-color: #fefefe;
+        margin: 15% auto;
+        padding: 20px;
+        border: 1px solid #888;
+        width: 80%;
+        max-width: 500px;
+        border-radius: 10px;
+    }
+
+    .close {
+        color: #aaa;
+        float: right;
+        font-size: 28px;
+        font-weight: bold;
+    }
+
+    .close:hover,
+    .close:focus {
+        color: black;
+        text-decoration: none;
+        cursor: pointer;
+    }
+
+    /* Right-side Create Button */
+    .create-btn {
+        position: absolute;
+        right: 20px;
+        top: 20px;
+        padding: 10px 20px;
+        background-color: #4CAF50;
+        color: white;
+        border: none;
+        cursor: pointer;
+        border-radius: 5px;
+        font-size: 16px;
+    }
+
+    .create-btn:hover {
+        background-color: #45a049;
+    }
+
+    /* Input fields styling */
+    input[type="text"],
+    input[type="date"],
+    input[type="time"],
+    select {
+        width: 100%;
+        padding: 8px 15px;
+        margin: 8px 0;
+        box-sizing: border-box;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        font-size: 14px;
+        background-color: #f9f9f9;
+    }
+
+    input[type="text"]:focus,
+    input[type="date"]:focus,
+    input[type="time"]:focus,
+    select:focus {
+        border-color: #4CAF50;
+        outline: none;
+    }
+
+    label {
+        font-size: 16px;
+        margin-bottom: 8px;
+        color: #333;
+    }
+
+    /* Button inside the modal */
+    button[type="submit"] {
+        background-color: #4CAF50;
+        color: white;
+        padding: 10px 20px;
+        border: none;
+        cursor: pointer;
+        border-radius: 5px;
+        font-size: 16px;
+    }
+
+    button[type="submit"]:hover {
+        background-color: #45a049;
+    }
+
+    /* List-style for input fields */
+    .form-container {
+        list-style: none;
+        padding: 0;
+    }
+
+    .form-container li {
+        margin-bottom: 15px;
+    }
+
+    .form-container li:last-child {
+        margin-bottom: 0;
+    }
+
+</style>
+<body>
+    <div class="container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="logo">
+                <img src="images/logo.png" alt="R&J Logo">
+                <h2>R&J CONSUMER GOODS TRADING</h2>
+            </div>
+            <nav>
+                <a href="/tasks" class="menu-item active">Tasks</a>
+                <a href="/inout" class="menu-item ">In/Out</a>
+                <a href="/services" class="menu-item">Services</a>
+                <a href="/inventory" class="menu-item">Inventory</a>
+                <a href="/empshop" class="menu-item">Shop</a>
+            </nav>
+            <button class="logout" onclick="window.location.href='/logout'">Logout</button>
+        </aside>
+
+        <!-- Main Content -->
+        <main>
+            <header class="header">
+                <input type="text" class="search" placeholder="Search tasks...">
+                <div class="icons">
+                    <a href="/home" class="icon">🏠</a>
+                    <span class="icon">👤</span>
+                </div>
+            </header>
+            <div class="task-container">
+                <h1>Task List</h1>
+  
+                <!-- Task table for the employee -->
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Task Description</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% tasks.forEach(task => { %>
+                            <tr>
+                                <td><%= task.description %></td>
+                                <td>
+                                    <% if (task.completed) { %>
+                                        <span>Completed</span>
+                                    <% } else { %>
+                                        <!-- Task completion checkbox -->
+                                        <form action="/tasks/complete/<%= task.id %>" method="POST" style="display: inline;">
+                                            <input type="checkbox" onclick="this.form.submit()" <%= task.completed ? 'checked' : '' %> disabled>
+                                        </form>
+                                    <% } %>
+                                </td>
+                            </tr>
+                        <% }) %>
+                    </tbody>
+                </table>
+            </div>
+        </main>
+    </div>
+</body>
+</html>
